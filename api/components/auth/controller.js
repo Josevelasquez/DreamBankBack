@@ -10,10 +10,9 @@ module.exports = function ( injectedStore) {
     }
 
     async function login(username, password) {
-        const data = await store.query(TABLA_CLIENTS_PASSWORD, {
+        const data = await store.getDataUser(TABLA_CLIENTS_PASSWORD, {
             clpa_username:username
         });
-
         return bcrypt.compare(password, data.clpa_password)
             .then((samePassword) => {
                 if(samePassword === true) {
@@ -36,7 +35,7 @@ module.exports = function ( injectedStore) {
         if (data.password) {
             authClientPassword.clpa_password = await bcrypt.hash(data.password, 5);
         }
-        return store.upsert(TABLA_CLIENTS_PASSWORD, authClientPassword);
+        return store.createUsername(TABLA_CLIENTS_PASSWORD, authClientPassword);
     }
 
     return {

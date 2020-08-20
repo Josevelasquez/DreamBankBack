@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 const secret = config.jwt.secret;
-const error = require('../utils/error');
+const error = require("../utils/error");
 //sign JWT
 function sign(data) {
-  return jwt.sign(data, secret);
+  return jwt.sign({ data }, secret);
 }
 
 function verify(token) {
@@ -35,14 +35,15 @@ function decodeHeader(req) {
 }
 const check = {
   own: function (req, owner) {
-      const decoded = decodeHeader(req);
-      console.log(decoded);
-      if(decoded. clpa_clientid !== owner) {
-      throw error('You can not do this', 401);
-      }
+    console.log(owner)
+    const decoded = decodeHeader(req);
+    console.log('decoded',decoded);
+    if (decoded.data.clpa_clientid !== owner) {
+      throw error("You can not do this", 401);
+    }
   },
 };
 module.exports = {
   sign,
-  check
+  check,
 };

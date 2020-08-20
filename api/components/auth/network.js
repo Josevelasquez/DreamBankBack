@@ -6,14 +6,12 @@ const Controller = require("./index");
 // routing
 const router = express.Router();
 
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res, next) {
     Controller.login(req.body.username, req.body.password)
     .then((token) => {
         response.success(req, res, token, 200);
     })
-    .catch((err) => {
-        response.error(req, res, 'username or password incorrect', 401)
-    })
+    .catch(next)
 });
 
 module.exports = router;

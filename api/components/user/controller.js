@@ -11,12 +11,12 @@ module.exports = function(injectedStore) {
     
     // get all product
     async function getAllProductByClient(idCliente) {
-        return store.get(TABLE_CLIENTS_PRODUCT,idCliente)
+        return store.getAllProductByClient(TABLE_CLIENTS_PRODUCT,idCliente)
     }
 
     // get detail product (transactions)
     async function getDetailProduct(idNumberAccount) {
-        return store.get(TABLE_TRANSACTIONS,idNumberAccount);
+        return store.getDetailProduct(idNumberAccount);
     }
 
     // Create new product and add pending state
@@ -29,7 +29,7 @@ module.exports = function(injectedStore) {
             clpr_status: body.clpr_status || 3,
             clpr_currency: body.clpr_currency
         }
-        return store.upsert(TABLE_CLIENTS_PRODUCT, product);
+        return store.createProduct(TABLE_CLIENTS_PRODUCT, product);
     }
     
 

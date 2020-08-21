@@ -5,15 +5,15 @@ const Controller = require("./index");
 
 // routing
 const router = express.Router();
-router.get("/getAllProductByClient", getAllProductByClient);
-router.get("/getDetailProduct", getDetailProduct);
+router.get("/getAllProductByClient/:clpr_idClient", getAllProductByClient);
+router.get("/getDetailProduct/:idNumberAccount", getDetailProduct);
 router.post("/createProduct", secure("createProduct"), createProduct);
 router.post("/", createUsername);
 
 // Internal functions
 
 function getAllProductByClient(req, res, next) {
-  Controller.getAllProductByClient(req.body.clpr_idClient)
+  Controller.getAllProductByClient(req.params.clpr_idClient)
     .then((clientProducts) => {
       response.success(req, res, clientProducts, 200);
     })
@@ -21,7 +21,7 @@ function getAllProductByClient(req, res, next) {
 }
 
 function getDetailProduct(req, res, next) {
-  Controller.getDetailProduct(req.body.idNumberAccount)
+  Controller.getDetailProduct(req.params.idNumberAccount)
     .then((product) => {
       response.success(req, res, product, 200);
     })

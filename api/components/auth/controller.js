@@ -16,7 +16,13 @@ module.exports = function ( injectedStore) {
         return bcrypt.compare(password, data.clpa_password)
             .then((samePassword) => {
                 if(samePassword === true) {
-                    return auth.sign(data)
+                    console.log(data)
+                    const token = auth.sign(data);
+                    const response = {
+                        token: token,
+                        idCliente: data.clpa_clientid
+                    }; 
+                    return response;
                 } else {
                     throw new Error('Information invalid');
                 }

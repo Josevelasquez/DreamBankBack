@@ -12,9 +12,6 @@ const errors = require('../network/errors');
 const app = express();
 
 app.use(bodyParser.json());
-//ROUTER
-app.use('/api/user', user);
-app.use('/api/auth',auth);
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -24,6 +21,9 @@ app.use((req, res, next) => {
     next();
 });
 
+//ROUTER
+app.use('/api/user', user);
+app.use('/api/auth',auth);
 app.use(errors);
 
 app.listen(config.api.port, () => {

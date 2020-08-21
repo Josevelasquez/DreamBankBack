@@ -38,10 +38,11 @@ handleConnection();
 function getAllProductByClient(table, clpr_clientid) {
   return new Promise((resolve, reject) => {
     connection.query(
-      `SELECT clpr_number, clpr_name,stat_name,curr_shortname, ifnull(SUM(cltr_value*cltr_type),0) AS cltr_balance
+      `SELECT clpr_number, clpr_name,stat_name,curr_shortname, prty_name, ifnull(SUM(cltr_value*cltr_type),0) AS cltr_balance
       FROM clients_products
       LEFT join client_transactions ON clpr_number=cltr_productnumber
       LEFT JOIN products ON prod_id=clpr_prodid
+      LEFT JOIN product_types ON prty_id=prod_type
       LEFT JOIN currency ON curr_id=clpr_currency
       LEFT JOIN statuses  ON stat_id=clpr_status
       WHERE clpr_clientid=${clpr_clientid}
